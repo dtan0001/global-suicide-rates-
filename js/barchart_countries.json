@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "width": 650,
+  "height": 400,
+  "title": {
+    "text": "Countries in Top 10 Suicide Rates",
+    "anchor":"middle",
+    "fontSize":20
+    },
+  "data": {
+    "url": "https://raw.githubusercontent.com/dtan0032/FIT3179_A2/main/data/master_updated.csv"
+  },
+  "params": [
+    {
+      "name": "Continent_selection",
+      "bind": {
+        "input": "select",
+        "options": [null, "Europe", "Americas", "Asia", "Oceania", "Africa"],
+        "labels": [
+          "Show All",
+          "Europe",
+          "Americas",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "name": "Continent Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "Continent_selection == null || datum.continent == Continent_selection"
+    },
+    {
+      "aggregate": [
+        {"op": "average", "field": "suicides/100k pop", "as": "Suicides /100k Population"},
+        {"op": "average", "field": "population", "as": "population"}
+      ],
+      "groupby": ["country"]
+    },
+    {
+      "joinaggregate": [{
+        "op": "mean",
+        "field": "Suicides /100k Population",
+        "as": "Suicides /100k Population Average"
+      }]
+    },
+     {
+      "window": [{
+        "op": "rank",
+        "as": "rank"
+      }],
+      "sort": [{ "field": "Suicides /100k Population", "order": "descending" }]
+    }, {
+      "filter": "datum.rank <= 10"}
+  ],
+  "layer":[{
+    "mark": {"type": "bar", "tooltip": true},
+    "encoding": {
+      "y": {
+        "field": "country",
+        "type": "nominal",
+        "title": "Country",
+        "sort": "-x"
+      },
+      "x": {"field": "Suicides /100k Population", "type": "quantitative"},
+      "color":{"condition": [{"test": "datum['rank'] == 1", "value": "#cc4c02"}
+              ],
+            "value": "#fecd68"
+      }
+    }
+  },
+    {
+      "mark": {"type": "rule", "color": "Black","size":1},
+      "encoding": {
+        "x": {
+          "aggregate": "average",
+          "field": "Suicides /100k Population Average",
+          "type": "quantitative",
+          "title": "Suicides /100k Population"
+        }
+      }
+    }],
+  "config": {"background":"#fff5e8"}
+}

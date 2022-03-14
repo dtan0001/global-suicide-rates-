@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "Stock prices of 5 Tech Companies over Time.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/dtan0032/FIT3179_A2/main/data/master_updated.csv"
+  },
+  "height": 400,
+  "width": 490,
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true, "tooltip": true},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "title": "Year","axis":{"grid":false,"labelAngle":-45}},
+        "y": {
+          "aggregate": "average",
+          "field": "suicides/100k pop",
+          "type": "quantitative",
+          "title": "Average of suicides/100k Population",
+          "axis":{"grid":false}
+        },
+        "color": {"field": "age", 
+          "type": "nominal", 
+          "title":"Age Group",
+          "scale":{
+            "domain":["5-14 years","15-24 years","25-34 years","35-54 years","55-74 years","75+ years"]
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": 15,
+        "dy": -160,
+        "text": "Age group of ",
+        "color": "black",
+        "fontSize": 15
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": 110,
+        "dy": -160,
+        "text": "75+ years old ",
+        "color": "goldenrod",
+        "fontSize": 15
+      }
+    },
+    
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": 230,
+        "dy": -160,
+        "text": " were consistently ",
+        "color": "black",
+        "fontSize": 15
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": 230,
+        "dy": -145,
+        "text": "higher than all other age groups.",
+        "color": "black",
+        "fontSize": 15
+      }
+    }
+  ],
+  "config": {"background":"#fff5e8"}
+}
