@@ -4,4 +4,4 @@ A data visualisation done in Vega-Lite. This visualisation attempts to show how 
 
 View it here: https://dtan0032.github.io/FIT3179_A2/
 
-![Suicide Rate Visualisation] (https://github.com/dtan0001/global-suicide-rates-/blob/main/Dashboard.png)
+![Suicide Rate Visualisation](https://github.com/dtan0001/global-suicide-rates-/blob/main/Dashboard.png)
